@@ -1,0 +1,67 @@
+{% extends "home/home.html" %}
+{% load static %}
+
+{% block aboutus %}
+    <!-- About Section-->
+<div class="about" id="about1">
+    <div class="about_container">
+        <h1 class="about_heading">About us</h1>
+        <p class="about_text">私達はIOTサービスを提供する</p>
+        <div class="slideshow-container">
+            <div class="mySlidesfade">
+                <img class="about-image" src="{% static 'home/images/iot1.png' %}">
+            </div>
+
+            <div class="mySlidesfade">
+                <img class="about-image" src="{% static 'home/images/iot2.png' %}">
+            </div>
+
+            <div class="mySlidesfade">
+                <img class="about-image" src="{% static 'home/images/iot3.png' %}">
+            </div>
+            <div class="mySlidesfade">
+                <img class="about-image" src="{% static 'home/images/iot4.jpg' %}">
+            </div>
+            <div class="mySlidesfade">
+                <img class="about-image" src="{% static 'home/images/iot5.png' %}">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="about" id="about2">
+    <div class="about_container">
+        <h1 class="about_heading">Concept</h1>
+        <p class="about_text">人間は毎日の便利な生活を送っていただきたい</p>
+        <p class="about_text">安心　安全</p>
+        <p class="about_text">危険を避けられる</p>
+    </div>
+</div>
+<div class="about" id="about3">
+    <div class="about_container">
+        <h1 class="about_heading">Pumaチーム</h1>
+        <p class="about_text">ものつくり大学　総合機械学科</p>
+        <ul>
+            <li>m01911098 LE TIEN THANH</li>
+            <li>m01911045 斉川　叶</li>
+            <li>m01911067 CHU BA DONG</li>
+            <li>m01911109 DINH TIEN ANH</li>
+            <li>m01911118 ADNAN MD ASIF MAHMUD</li>
+            <li>m01911120 VU DINH DUONG</li>
+        </ul>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="{% static '/home/slick.min.js' %}"></script>
+
+<script>
+    $(function(){
+        $('.slideshow-container').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+        });
+    });
+</script>
+
+{% endblock aboutus %}

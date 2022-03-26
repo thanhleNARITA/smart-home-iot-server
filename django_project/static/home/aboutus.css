@@ -1,0 +1,32 @@
+
+/* about content  */
+.about{
+    display: block;
+    padding: 5rem 0;
+    position:relative;
+}
+
+.about_container {
+  display: block;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mySlidesfade {
+    width: 640px;
+    height: 240px;
+
+}
+.about-image {
+    width: 640px;
+    height: 320px;
+}
+
+@media (max-width: 800px) {
+    .about-image {
+        width: 95%;
+        height: 180px;
+    }
+
+}
+

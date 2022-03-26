@@ -1,0 +1,6 @@
+Django==3.2.9
+djangorestframework==3.12.4
+requests==2.11.1
+Pyrebase==3.0.27
+django-cors-headers==3.10.1
+django-crispy-forms==1.13.0

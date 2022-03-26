@@ -1,0 +1,145 @@
+@media screen and (min-width: 800px) {
+    .room-status-container {
+        width: 700px;
+    }
+    .room-temp-pressure {
+        margin-left: 25px;
+        width: 95%;
+
+    }
+    .room-under {
+        margin-left: 25px;
+        width: 95%;
+    }
+
+    .room-pressure {
+        width: 310px;
+    }
+
+    .room-humidity {
+        width: 310px;
+    }
+
+    .room-animation {
+        width: 310px;
+    }
+
+}
+
+
+@media screen and (max-width: 800px) {
+    .room-status-container {
+        width: 98%;
+    }
+    .room-under {
+        margin-left: 25px;
+        width: 90%;
+    }
+    .room-temp-pressure {
+        margin-left: 25px;
+        width: 90%;
+
+    }
+
+    .room-pressure {
+        width: 100%;
+    }
+
+    .room-humidity {
+        width: 42%;
+    }
+    .room-animation {
+        width: 100%;
+    }
+
+}
+
+
+.room-status-container {
+    background-color: #e8d4d4;
+    border-radius: 15px;
+    position: relative;
+    height: 260px;
+}
+
+.room-temp-pressure {
+    display: flex;
+
+}
+
+.room-temperature {
+    margin-top: 20px;
+    display: table-cell;
+    height: 100px;
+    min-width: 47%;
+    border-radius: 15px;
+    justify-items: center;
+    text-align: center;
+    background-color: ghostwhite;
+    box-shadow: rgba(153, 132, 178, 0.8) 0px 5px 15px;
+}
+.room-pressure {
+    margin-top: 20px;
+    margin-left: 25px;
+    height: 100px;
+    display: table-cell;
+    vertical-align: top;
+    border-radius: 15px;
+    justify-items: center;
+    text-align: center;
+    background-color: ghostwhite;
+    box-shadow: rgba(153, 132, 178, 0.8) 0px 5px 15px;
+}
+
+
+.room-under {
+    display: flex;
+}
+.room-humidity {
+    margin-top: 20px;
+    display: table-cell;
+    height: 100px;
+    min-width: 47%;
+    border-radius: 15px;
+    justify-items: center;
+    text-align: center;
+    background-color: ghostwhite;
+    box-shadow: rgba(153, 132, 178, 0.8) 0px 5px 15px;
+}
+
+.span1 p{
+    margin-top: 10px;
+
+}
+
+.span2 {
+    margin-top: 5px;
+}
+
+.span2 .widget1 {
+    margin-top: 5px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.room-animation {
+    margin-top: 20px;
+    margin-left: 25px;
+    height: 100px;
+    display: table-cell;
+    vertical-align: top;
+    border-radius: 15px;
+    justify-items: center;
+    text-align: center;
+
+}
+
+.room-circle-anime {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: whitesmoke;
+    margin-top: 25px;
+}
+
+

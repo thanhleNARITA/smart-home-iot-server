@@ -1,0 +1,85 @@
+{% extends 'home/home.html' %}
+{% load static %}
+{% block services %}
+    <div class="services-section">
+        <div class="services-content">
+            <div>
+                <h2>Contact US</h2>
+                <p>困ったり、問題などが発生すると連絡してください</p>
+                <p>すぐ対応します</p>
+            </div>
+            
+        </div>
+        <div class="services-contact">
+            <div class="services-contact-info">
+                <span>
+                    <h2>連絡方法</h2>
+                    <p>年中無休</p>
+                </span>
+                <ul>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <a >+0123 567 789</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <a>m01911098@iot.ac.jp</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marked-alt"></i>
+                        <a>行田市前谷３３３番地</a>
+                    </li>
+                </ul>
+                <div class="contact-icon">
+                    <ul >
+                        <li>
+                            <a href="https://www.facebook.com/InstituteofTechnologists/">
+                                <i class="fab fa-facebook-square"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/ThanhLe05687545">
+                                <i class="fab fa-twitch"></i>
+                            </a>
+
+                        </li>
+                        <li>
+                            <a>
+                                <i class="fab fa-instagram"></i>
+                            </a>
+
+                        </li>
+                        <li>
+                            <a>
+                                <i class="fab fa-line"></i>
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="services-contact-form">
+                <div>
+                    <label for="name">名前</label>
+                    <input type="text" id="inputs" name="name">
+                </div>
+                <div>
+                    <label for="mail">メール</label>
+                    <input type="text" id="inputs" name="mail">
+                </div>
+                <div>
+                    <label for="number">電話番号</label>
+                    <input  type="text" id="inputs" name="number">
+                </div>
+                <div>
+                    <label for="message">メッセージ</label>
+                    <input type="text" id="inputs" name="message">
+                </div>
+
+                <button class="contact-button"><p>送る</p></button>
+                
+            </div>
+        </div>
+        
+    </div>
+{% endblock services %}

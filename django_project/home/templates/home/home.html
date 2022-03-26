@@ -1,0 +1,155 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+    <title>Scroll Website</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'home/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/faq.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/contact.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/room.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/aboutus.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/homepage.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/style_button.css' %} ">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/slick.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'home/slick-theme.css' %}"/>
+
+
+    <link rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+    crossorigin="anonymous">
+
+
+
+
+
+</head>
+
+<body>
+    <nav class="navbar" id="navbar_id">
+        <div class="navbar_container">
+                <!-- NEW CHANGE 20211217-->
+            <div class="navbar_space" id="navbar_space_id">
+                <i style="font-size:35px;" class="fas fa-paw"></i>
+            </div>
+            <ul class="navbar_menu">
+                <li class="navbar_item">
+                    <a href="{% url 'homepages' %}" class="navbar_links">
+                        <i style ="color: white" class="fas fa-house-user"></i>
+                        <p class="navbartit">Home</p>
+                    </a>
+                </li>
+                <li class="navbar_item">
+                    
+                    <a href="{% url 'aboutus' %}" class="navbar_links">
+                        <i style ="color: white" class="far fa-address-card"></i>
+                        <p class="navbartit">About</p>
+                    </a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="navbar_item">
+                    
+                    <a href="{% url 'room' %}" class="navbar_links">
+                        <i style ="color: white" class="fas fa-person-booth"></i>
+                        <p class="navbartit">Room</p>
+                    </a>
+                </li>
+                {% endif %}
+                <li class="navbar_item">
+                    
+                    <a href="{% url 'security' %}" class="navbar_links">
+                        <i style ="color: white" class="fas fa-shield-alt"></i>
+                        <p class="navbartit">Security</p>
+                    </a>
+                </li>
+
+
+            </ul>
+
+            <ul class="navbar_menu2">
+                {% if user.is_authenticated %}
+                <li class="navbar_item">
+                    <a href="{% url 'logout' %}" class="navbar_links">
+                        <i style="color:white" class="fas fa-sign-out-alt"></i>
+                        <p class="navbartit">Logout</p>
+                    </a>
+                </li>
+                {% else %}
+                <li class="navbar_item">
+                    <a href="{% url 'register' %}" class="navbar_links">
+                        <i style="color:white;" class="fas fa-user-plus"></i>
+                        <p class="navbartit">Register</p>
+                    </a>
+                </li>
+                <li class="navbar_item">                  
+                    <a href="{% url 'login' %}" class="navbar_links">
+                        <i style ="color: white" class="fas fa-sign-in-alt"></i>
+                        <p class="navbartit">Login</p>
+                    </a>
+                </li>
+                {% endif %}
+
+                <li class="navbar_item">
+                    <a href="{% url 'services' %}" class="navbar_links">
+                        <i style ="color: white" class="fab fa-servicestack"></i>
+                        <p class="navbartit">Service</p>
+                    </a>
+                </li>
+                <li class="navbar_item">
+                    <a href="{% url 'faq' %}" class="navbar_links">
+                        <i style ="color: white" class="fas fa-question-circle"></i>
+                        <p class="navbartit">FAQ</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <script>
+        var navbar_div = document.getElementById("navbar_id");
+        var navbar_title = document.getElementsByClassName("navbartit");
+        var navbar_space_s = document.getElementById("navbar_space_id");
+        var width = window.matchMedia( "(max-width: 800px)" );
+        if (width.matches) {
+            navbar_div.addEventListener('click', function(event) {
+            navbar_div.classList.toggle("navbar_after_click");
+            navbar_space_s.classList.toggle("navbar_space_after_click");
+            for (var i = 0, len=navbar_title.length; i<len; i++)  {
+                navbar_title[i].classList.toggle("navbar_text_after_click");
+            }
+        })
+        }
+
+    </script>
+
+    <!-- NEW CHANGE 20211217-->
+    {% block home %}
+
+    {% endblock home %}
+
+    {% block aboutus %}
+
+    {% endblock aboutus %}
+
+    {% block content %}
+
+    {% endblock content %}
+
+    {% block faq %}
+
+    {% endblock faq %}
+
+    {% block services %}
+
+    {% endblock services %}
+
+    n
+    
+{% csrf_token %}
+<script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
+
+</body>
+</html>

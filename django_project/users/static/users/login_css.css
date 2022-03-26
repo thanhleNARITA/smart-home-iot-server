@@ -1,0 +1,37 @@
+
+
+.form_login {
+    display: flex;
+    justify-content: center;
+
+}
+
+.content-section {
+    padding: 40px 40px 40px 40px;
+    width: 40%;
+    height: 50%;
+
+
+}
+
+.back_home_button p {
+    font-size: 30px;
+}
+
+.btn {
+    color: white;
+}
+
+
+.form_content{
+    display: flex;
+    justify-items: center;
+}
+.form-gorup {
+    background-color: #2d16af;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    width: 40%;
+    text-align: center;
+    justify-content: center;
+}

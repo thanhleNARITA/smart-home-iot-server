@@ -1,0 +1,18 @@
+
+
+.faq-section {
+    display: flex;
+    position: absolute;
+    margin-left: 230px;
+}
+
+.faq-content {
+    display: flex;
+}
+.faq-content p {
+    font-size: 150px;
+}
+
+.faq-content ul {
+    list-style: none;
+}

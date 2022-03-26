@@ -1,0 +1,357 @@
+{% extends "home/home.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- Room Section-->
+{% if user.is_authenticated %}
+<div class="room" id="room">
+    <div class="room_head"><h1 class="room_heading">Room</h1></div>
+    <div class="room_container">
+        <div class="led-room1">
+            <span>
+                <i class="fas fa-lightbulb"></i>
+                <label class="switch">
+                    <input type="checkbox" id="togBtn" >
+                    <div class="slider round"></div>
+                </label>
+            </span>
+
+            <p class="led-room1-text">Led</p>
+        </div>
+        <div class="air-conditionning">
+            <span>
+                <span class="iconify" data-icon="iconoir:air-conditioner" data-width="36" data-height="36" ></span>
+                <label class="switch1">
+                    <input type="checkbox" id="togBtn1" >
+                    <div class="slider1 round"></div>
+                </label>
+            </span>
+
+            <p class="led-room1-text">Air conditionning</p>
+        </div>
+        <div class="door-lock">
+            <span>
+                <i class="fas fa-door-open"></i>
+                <label class="switch2">
+                    <input type="checkbox" id="togBtn2" >
+                    <div class="slider2 round"></div>
+                </label>
+            </span>
+
+            <p class="door-text">Door</p>
+        </div>
+
+        <div class="energy-saving">
+            <span>
+                <span class="iconify" data-icon="carbon:energy-renewable" style="color: white;" data-width="36" data-height="36"></span>
+                <label class="switch3">
+                    <input type="checkbox" id="togBtn3" >
+                    <div class="slider3 round"></div>
+                </label>
+            </span>
+
+            <p class="door-text">Energy Saving</p>
+        </div>
+
+    </div>
+
+    <div class="room-status-container">
+        <div class="room-status-widget">
+            <div class="room-temp-pressure">
+                <div class="room-temperature">
+                    <span class="span1">
+                        <p>Temperature</p>
+                    </span>
+                    <span class="span2">
+                        <p id="temp1" class="widget1">3℃</p>
+                        <p id="temp2" class="widget2">寒い〜〜</p>
+                    </span>
+                </div>
+
+                <div class="room-pressure">
+                    <span class="span1">
+                        <p>Pressure</p>
+                    </span>
+                    <span class="span2">
+                        <p id="pressure1" class="widget1">1255Hpa</p>
+                        <p id="pressure2" class="widget2">...</p>
+                    </span>
+
+                </div>
+            </div>
+            <div class="room-under">
+                <div class="room-humidity">
+                    <span class="span1">
+                        <p>Humidity</p>
+                    </span>
+                    <span class="span2">
+                        <p id="humidity1" class="widget1">50%</p>
+                        <p id="humidity2" class="widget2">結構乾燥する</p>
+                    </span>
+                </div>
+                <div class="room-animation">
+                    <div class="room-circle-anime"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-analytics.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyACZIpVXpHPsHUdewz0UbLP63vS5ljm7V8",
+      authDomain: "testarduino-0000.firebaseapp.com",
+      databaseURL: "https://testarduino-0000-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "testarduino-0000",
+      storageBucket: "testarduino-0000.appspot.com",
+      messagingSenderId: "849041339991",
+      appId: "1:849041339991:web:b0a8bd2d653201c1275512",
+      measurementId: "G-LJZW5X7QG5"
+    };
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+    import {getDatabase, ref, set, child, update, remove, get, onValue}
+    from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
+
+    const db = getDatabase();
+
+    var led_value, aircon_value, door_value, esaving_value;
+
+    const db_led = ref(db, 'home/' + 'led');
+    onValue(db_led, (snapshot) => {
+        const data = snapshot.val();
+        led_value = data;
+        if (data === 1) {
+            document.getElementById("togBtn").checked = true;
+        } else {
+            document.getElementById("togBtn").checked = false;
+        }
+        console.log("led status:" + data);
+        status_button(led_value, aircon_value, door_value, esaving_value)
+    })
+
+    const db_aircon = ref(db, 'home/' + 'aircon');
+    onValue(db_aircon, (snapshot) => {
+        const data = snapshot.val();
+        aircon_value = data;
+        if (data === 1) {
+            document.getElementById("togBtn1").checked = true;
+        } else {
+            document.getElementById("togBtn1").checked = false;
+        }
+        console.log("led status:" + data);
+        status_button(led_value, aircon_value, door_value, esaving_value)
+    })
+
+    const db_door = ref(db, 'home/' + 'door');
+    onValue(db_door, (snapshot) => {
+        const data = snapshot.val();
+        door_value = data;
+        if (data === 1) {
+            document.getElementById("togBtn2").checked = true;
+        } else {
+            document.getElementById("togBtn2").checked = false;
+        }
+        console.log("led status:" + data);
+        status_button(led_value, aircon_value, door_value, esaving_value)
+    })
+
+    const db_energysaving = ref(db, 'home/' + 'esaving');
+    onValue(db_energysaving, (snapshot) => {
+        const data = snapshot.val();
+        esaving_value = data;
+        if (data === 1) {
+            document.getElementById("togBtn3").checked = true;
+        } else {
+            document.getElementById("togBtn3").checked = false;
+        }
+        console.log("led status:" + data);
+        status_button(led_value, aircon_value, door_value, esaving_value)
+    })
+
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    function changeButtonStatus(led, aircon, door, esaving) {
+        const rquest = new XMLHttpRequest()
+        rquest.open("POST", "http://127.0.0.1:8080/room-status/update/1/", true)
+        rquest.setRequestHeader('Content-Type', 'application/json');
+        rquest.setRequestHeader("X-CSRFToken", csrftoken)
+        rquest.send(JSON.stringify({
+            led_status:led,
+            door_status:aircon,
+            esaving_status:door,
+            aircon_status:esaving,
+        }))
+    }
+
+    function status_button(led, aircon, door, esaving) {
+        console.log("led:" + led)
+        console.log("aircon:" + aircon)
+        console.log("door:" + door)
+        console.log("esaving:" + esaving)
+    }
+
+    var btn_led = document.getElementById("togBtn");
+    btn_led.addEventListener("click", function() {
+        if (btn_led.checked === true) {
+            console.log("led is on");
+            led_value = 1
+            update(ref(db, 'home/'),{
+                led:led_value,
+            })
+        } else {
+            console.log("led is off");
+            led_value = 0
+            update(ref(db, 'home/'),{
+                led:led_value,
+            })
+        }
+        changeButtonStatus(led_value, aircon_value, door_value, esaving_value)
+    })
+
+    var btn_air = document.getElementById("togBtn1");
+    btn_air.addEventListener("click", function() {
+        if (btn_air.checked === true) {
+            console.log("led is on");
+            aircon_value = 1
+            update(ref(db, 'home/'),{
+                aircon:aircon_value,
+            })
+        } else {
+            console.log("led is off");
+            aircon_value = 0;
+            update(ref(db, 'home/'),{
+                aircon:aircon_value,
+            })
+        }
+        changeButtonStatus(led_value, aircon_value, door_value, esaving_value)
+    })
+
+    var btn_door = document.getElementById("togBtn2");
+    btn_door.addEventListener("click", function() {
+        if (btn_door.checked === true) {
+            console.log("door is open");
+            door_value = 1
+            update(ref(db, 'home/'),{
+                door:door_value,
+            })
+        } else {
+            console.log("door is lock");
+            door_value = 0
+            update(ref(db, 'home/'),{
+                door:door_value,
+            })
+        }
+        changeButtonStatus(led_value, aircon_value, door_value, esaving_value)
+    })
+
+    var btn_esaving = document.getElementById("togBtn3");
+    btn_esaving.addEventListener("click", function() {
+        if (btn_esaving.checked === true) {
+            console.log("Energy is on");
+            esaving_value = 1
+            update(ref(db, 'home/'),{
+                esaving:esaving_value,
+            })
+        } else {
+            console.log("Energy is off");
+            esaving_value = 0
+            update(ref(db, 'home/'),{
+                esaving:esaving_value,
+            })
+        }
+        changeButtonStatus(led_value, aircon_value, door_value, esaving_value)
+    })
+
+    //=========================================================//
+
+
+</script>
+<script src="{% static '/home/anime.min.js' %}" type="text/javascript"></script>
+<script type="text/javascript">
+    var temp_ele1, temp_ele2, pressure_ele1, pressure_ele2, humidity_ele1, humidity_ele2;
+    temp_ele1 = document.getElementById("temp1");
+    temp_ele2 = document.getElementById("temp2");
+    pressure_ele1 = document.getElementById("pressure1");
+    pressure_ele2 = document.getElementById("pressure2");
+    humidity_ele1 = document.getElementById("humidity1");
+    humidity_ele2 = document.getElementById("humidity2");
+
+    window.onload = function() {
+        var evtSource = new EventSource("{% url 'stream_response' %}");
+        let temperature, pressure, humidity;
+
+
+        evtSource.onmessage = function(e) {
+            console.log(e);
+            console.log("data:"+e.data);
+            let json_data = JSON.parse(e.data);
+            console.log("Json:" + json_data);
+            temperature = json_data.temperature;
+            pressure = json_data.pressure;
+            humidity = json_data.humidity;
+            console.log(temperature + pressure + humidity);
+            change_room_status(temperature, pressure, humidity)
+        };
+    }
+
+    function change_room_status (temperature, pressure, humidity) {
+        temp_ele1.innerHTML = temperature + "℃";
+        pressure_ele1.innerHTML = pressure + "Hpa";
+        humidity_ele1.innerHTML = humidity + "%";
+
+        if (temperature < 10) {
+            temp_ele2.innerHTML = "寒いね〜";
+        } else if (temperature > 10 || temperature < 20) {
+            temp_ele2.innerHTML = "暖かい〜";
+        } else if (temperature > 20 || temperature < 30)  {
+            temp_ele2.innerHTML = "涼しい"
+        } else if (temperature > 30) {
+            temp_ele2.innerHTML = "暑いね：・"
+        }
+
+        if (humidity > 75) {
+            humidity_ele2.innerHTML = "高湿"
+        } else if (humidity > 40 || humidity < 75) {
+            humidity_ele2.innerHTML = "ややいい感じ"
+        } else if (humidity < 40) {
+            humidity_ele2.innerHTML = "乾燥"
+        }
+    }
+
+    const widthscreen = screen.width;
+
+    console.log("width:"+widthscreen)
+    let stranslate_x = 270;
+    if (widthscreen > 800) {
+        stranslate_x = 270;
+    } else if (widthscreen < 800) {
+        stranslate_x = 110;
+    }
+    var animation = anime({
+        targets: '.room-circle-anime',
+        translateX: stranslate_x,
+        direction: 'alternate',
+        loop: true,
+        easing: 'easeInOutQuad',
+        autoplay: false
+    });
+
+    function loop(t) {
+      animation.tick(t);
+      customRAF = requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+
+
+</script>
+
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,215 @@
+{% extends "home/home.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+    <title>Scroll Website</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'home/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/style_button.css' %} ">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/homepage.css' %}">
+    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
+    <link rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+    crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    {% block home %}
+    <!-- Home Section -->
+    <div class="home-section" id="home" >
+        <div class="home_container" id="home_container_id">
+            {% if user.is_authenticated %}
+            {% if user.last_name %}
+            <p class="home_heading">こんにちは, {{user.last_name}}!</p>
+            {% else %}
+            <p class="home_heading">こんにちは, ゲスト!</p>
+            {% endif %}
+            {% else %}
+            <p class="home_heading">こんにちは, ゲスト!</p>
+            {% endif %}
+            <p class="home_heading1">今日の天気は!</p>
+        </div>
+
+    </div>
+    <div class="weather">
+            <a class="weatherwidget-io" href="https://forecast7.com/ja/36d07139d52/kounosu/" data-label_1="KONOSU" data-label_2="WEATHER" data-font="ヒラギノ角ゴ Pro W3" data-theme="blue-mountains" >鴻巣市　天気</a>
+            <script>
+            !function(d,s,id){
+                var js,fjs=d.getElementsByTagName(s)[0];
+                if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+            </script>
+    </div>
+
+    {% if user.is_authenticated %}
+    {% else %}
+        <div class="content-home-page">
+            <a href="{% url 'login' %}"><p>ログインして</p></a>
+            <p>あなたのホームを管理する</p>
+        </div>
+    {% endif %}
+        <!-- new 20211217-->
+    {% if user.is_authenticated %}
+    <div class="todo-container">
+        <div class="todo-content">
+            <span class="todo-tit">Title name</span>
+            <ul class="todo-list-ul">
+                <li>
+                    <label class="container">
+                        <input class ="checktodo" type="checkbox" name="check-out" onclick="myCheckedFunc()">
+                        <p class="todolist-content" title="hello" ></p>
+                        <span class="checkmark"></span>
+                    </label>
+                </li>
+                <li>
+                    <label class="container">
+                        <input class ="checktodo"  type="checkbox" name="check-out" onclick="myCheckedFunc()">
+                        <p class="todolist-content"></p>
+                        <span class="checkmark"></span>
+                    </label>
+                </li>
+                <li>
+                    <label class="container">
+                        <input class ="checktodo"  type="checkbox" name="check-out" onclick="myCheckedFunc()">
+                        <p class="todolist-content"></p>
+                        <span class="checkmark"></span>
+                    </label>
+                </li>
+                <li>
+                    <label class="container">
+                        <input class ="checktodo"  type="checkbox" name="check-out" onclick="myCheckedFunc()">
+                        <p class="todolist-content"></p>
+                        <span class="checkmark"></span>
+                    </label>
+                </li>
+
+            </ul>
+        </div>
+        <div class="todo-createnew">
+            <ul>
+                <li>
+                    <label for="todo_something">title:</label>
+                    <input type="text" id="todo_something"/>
+                </li>
+                <li>
+                    <label for="date">date:</label>
+                    <input type="date" id="date">
+                </li>
+                <li>
+                    <button class="todo-button" onclick="add_todolist_to_db()"><span>Add</span></button>{% csrf_token %}
+
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    {% endif %}
+        <!-- new 20211217-->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        var jsonResponse;
+        var list_todo = [];
+        var todolist_element = document.getElementsByClassName("todolist-content");
+        var check_element = document.getElementsByClassName("checktodo");
+        var check_mark_element = document.getElementsByClassName("checkmark");
+
+        url_api = "{{ message }}"
+
+        function get_todolist_from_api() {
+            let rquest = new XMLHttpRequest();
+            rquest.open("GET", url_api + "/todolist/view/", true);
+            rquest.responseType = 'text'
+            rquest.onload = function () {
+                var status = rquest.status;
+
+                if (status === 200) {
+                    text = JSON.parse(rquest.responseText);
+                    var length_arr;
+
+                    for (var i=0; i<4; i++) {
+                        if (!text[i]){
+                            check_element[i].style.display = "none";
+                            check_mark_element[i].style.display = "none";
+                        } else {
+                            console.log(text[i].title)
+                            todolist_element[i].innerHTML = text[i].title;
+                            todolist_element[i].title = text[i].id;
+
+                        }
+
+                    }
+                }
+            }
+            rquest.send(null);
+        }
+        get_todolist_from_api();
+
+
+        for (let i = 0; i<todolist_element; i++) {
+
+        }
+        for (let i =0; i<4; i++) {
+            todolist_element[i].checked = false;
+        }
+
+        function myCheckedFunc() {
+            for (var i =0; i<check_element.length; i++) {
+                if (check_element[i].checked === true && !check_element[i].style.display) {
+                    let url_delete = url_api + "/todolist/delete/" + todolist_element[i].title +"/";
+                    todolist_element[i].innerHTML = "done"
+                    var delete_request = $.ajax(url_delete, {
+                        type:'GET'
+                    })
+
+                    delete_request.success(function () {
+                        console.log("Success to delete ")
+                    })
+                }
+            }
+        }
+
+        function add_todolist_to_db() {
+            let input_todo = document.getElementById("todo_something").value;
+            let input_todo_date = document.getElementById("date").value;
+            console.log(input_todo);
+            console.log(input_todo_date);
+            let rquest = new XMLHttpRequest()
+            rquest.open("POST", url_api + "/todolist/create/", true)
+            rquest.setRequestHeader('Content-Type', 'application/json');
+            rquest.setRequestHeader("X-CSRFToken", csrftoken)
+            rquest.send(JSON.stringify({
+                title:input_todo,
+                date:input_todo_date,
+            }))
+
+            get_todolist_from_api();
+        }
+
+        var mouseX, mouseY;
+        var traX, traY;
+        var home_container_ele = document.getElementById("home_container_id");
+        window.addEventListener('mousemove', e=>{
+            mouseX = e.offsetX;
+            mouseY = e.offsetY;
+            traX = ((4 * mouseX) / 570) + 40;
+            traY = ((4 * mouseY) / 570) + 50;
+
+            $(".home_container").css({"background-position": traX + "%" + traY + "%"});
+            home_container_ele.style.position = traX + "%" + traY + "%";
+        });
+    </script>
+
+
+    {% endblock home %}
+
+</body>
+</html>
+
